@@ -99,9 +99,9 @@ static void resetAudioBuffers() {
 	// song with original 60 hz playback.. adjust number of samples to play it faster.	
 
 	if(sNtscMode && isRasterDrivenPsid()) { 
-		sNumberOfSamplesPerCall= 735; 										// NTSC: 735*60=44100
+		sNumberOfSamplesPerCall= sSampleRate / 60; 										// NTSC: 735*60=44100
 	} else {
-		sNumberOfSamplesPerCall= 882; 										// PAL: 882*50=44100
+		sNumberOfSamplesPerCall= sSampleRate / 50; 										// PAL: 882*50=44100
 	}
 	sChunkSize= sNumberOfSamplesPerCall*8; 	// e.g. data for 8 50hz screens (0.16 secs)
 
@@ -358,7 +358,7 @@ static int EMSCRIPTEN_KEEPALIVE loadSidFile(void * inBuffer, unsigned long inBuf
 
 	resetKernelROM();		// read only (only need to do this once)
 
-    sSampleRate= 44100;		// TODO: extend API & use actual target sample rate
+    sSampleRate= 22050;		// TODO: extend API & use actual target sample rate
 	sInitAddr= 0;
 	sPlayAddr= 0;
 	sLoadEndAddr= 0;
